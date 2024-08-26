@@ -1,0 +1,52 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+http:
+  ip_ban_enabled: false
+  login_attempts_threshold: 5
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.0/24
+
+google_assistant:
+  project_id: smart-home-63144
+  service_account: !include SERVICE_ACCOUNT.JSON
+  report_state: true
+#  secure_devices_pin: ""
+  exposed_domains:
+    - switch
+    - light
+    - input_boolean
+    - covers
+  entity_config:
+    light.kuchnia:
+      expose: false
+      name: pasek
+    light.wszystkieswiatla:
+      expose: false
+#group:
+#  garmin:
+#    name: Garmin
+#    entities:
+#      - light.sypialnia_light
+#      - light.biuro_relay
+#      - light.kuchnia_relay
+#      - light.yeelight_color_0x5ed0966
+#      - cover.main_garage_door
+my:
+frontend:
+  themes: !include_dir_merge_named themes
+#zha_toolkit:
+zha:
+  zigpy_config:
+    ota:
+      ikea_provider: true
+      ikea_update_url: http://fw.test.ota.homesmart.ikea.net/feed/version_info.json
